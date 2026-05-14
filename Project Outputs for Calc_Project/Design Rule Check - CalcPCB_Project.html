@@ -1,0 +1,787 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD26\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">5/11/2026</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">7:26:13 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc" class="file"><acronym title="C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc">C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">149</td></tr>
+</table>
+</td>
+</table><a name="IDCNMDPVRBYGWQIRQV2VNJDF55VMFYRWOBAL5BIPLCN5LOJGND2LS"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDK5MW0Y4OXO3XGNJPNWVEPENEOFAZJ0QETQ55QJFC40RDLLX4JQAJ">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">24</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEIFTVQZLCP3OF01UFS4LA4LBVNXS1ZVJM4OQOTPRMEMAYUIWM1CH">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYN3BMVT4H2FRIAIQZYSIOGRTHGTMKM21ETH5WQJLI2MISJRIL4NF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">100</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFTGPLC1FA2UWFCPP1V5KKHPGPMFTFCP5A3HGCBHVNQP2KQ2XTIFF">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0H5BHZQCTK3PO3ERZ1BFQHTCEIFE4QH2VQKPGNIKABCVVD4ZOVSD">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBJZGWONUXA03JJQLMOXWIR1I2FXS24BPFWHGIWOSDEXSU3WRQRDG">Routing Topology Rule(Topology=Shortest) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRGA0LR1RVU5GOPWYSGXJRYP3BPSBO5QGWT1PFDLMPBZEV4FZFAYJ">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDY5YE2SCONEKUNJ5FR1HBXJOLGMKVEOFJV1YE1MLR2QLEEAG43N3P">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLPQKWNE15FV4FJGI0LHQ5HT2PEUQVAHZQVOM21DE53LAVKS0S1ZB">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYKRBRX320YOUJXTFFPOZLPTUOE1LT5OUHLPULDNDU3DLMGKYLQTL">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">25</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZN30ZSC25ESEMJ2IY1NQ1QTZ5CG4503YY2B33IOZ5OOTURKAFH5J">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2AQIXGWGC0UFBG0MLFGRBP1TJMGZANRBHQSCTFFUX5HHPRSENYBP">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3EE4WSLJKQRQNFAWFIDXEOSD0PJOGG4SUO1NUIGNKB3UK4CHUF1I">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDF5EF4UHQLR30BJ1USIVMW0R2VNBIBB0FHKXH40DN44YWSLHKGOYG">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">149</td>
+</tr>
+</table><br><a name="IDK5MW0Y4OXO3XGNJPNWVEPENEOFAZJ0QETQ55QJFC40RDLLX4JQAJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=605.517mil|Location2.X=616.767mil|Location1.Y=2219.375mil|Location2.Y=2230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=605.517mil|Location2.X=616.767mil|Location1.Y=2219.375mil|Location2.Y=2230.625mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad R1-1(620mil,2239.764mil) on Top Layer And Pad R1-2(620mil,2210.236mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2470.452mil|Location2.Y=2481.702mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2470.452mil|Location2.Y=2481.702mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-1(1333.821mil,2480.787mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-10(1245.158mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-11(1225.472mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-12(1205.787mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-13(1176.179mil,2579.213mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-14(1176.179mil,2559.528mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-15(1176.179mil,2539.843mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-16(1176.179mil,2520.157mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-17(1176.179mil,2500.472mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2475.162mil|Location2.Y=2486.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2475.162mil|Location2.Y=2486.412mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-18(1176.179mil,2480.787mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-19(1205.787mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-2(1333.821mil,2500.472mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-20(1225.472mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-21(1245.158mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-22(1264.842mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-23(1284.527mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-24(1304.213mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-4(1333.821mil,2539.843mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-5(1333.821mil,2559.528mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-6(1333.821mil,2579.213mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-7(1304.213mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-8(1284.527mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-9(1264.842mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYN3BMVT4H2FRIAIQZYSIOGRTHGTMKM21ETH5WQJLI2MISJRIL4NF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=409.516mil|Location2.X=1264mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=409.516mil|Location2.X=1264mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_A Between Pad U2-14(420mil,2333.61mil) on Top Layer And Pad *1-1(1230mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=409.516mil|Location2.X=1464mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=409.516mil|Location2.X=1464mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net DIG_2 Between Pad U2-11(420mil,2706.39mil) on Top Layer And Pad *1-10(1430mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=659.516mil|Location2.X=1364mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=659.516mil|Location2.X=1364mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net DIG_3 Between Pad U2-6(670mil,2706.39mil) on Top Layer And Pad *1-11(1330mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=609.516mil|Location2.X=1264mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=609.516mil|Location2.X=1264mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net DIG_4 Between Pad U2-7(620mil,2706.39mil) on Top Layer And Pad *1-12(1230mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=1364mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=1364mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_B Between Pad U2-16(520mil,2333.61mil) on Top Layer And Pad *1-2(1330mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=709.516mil|Location2.X=1464mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=709.516mil|Location2.X=1464mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_C Between Pad U2-20(720mil,2333.61mil) on Top Layer And Pad *1-3(1430mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=859.516mil|Location2.X=1564mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=859.516mil|Location2.X=1564mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_D Between Pad U2-23(870mil,2333.61mil) on Top Layer And Pad *1-4(1530mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=759.516mil|Location2.X=1664mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=759.516mil|Location2.X=1664mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_E Between Pad U2-21(770mil,2333.61mil) on Top Layer And Pad *1-5(1630mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=459.516mil|Location2.X=1764mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=459.516mil|Location2.X=1764mil|Location1.Y=2296.72mil|Location2.Y=3079mil|Absolute=True">Un-Routed Net Constraint: Net SEG_F Between Pad U2-15(470mil,2333.61mil) on Top Layer And Pad *1-6(1730mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.516mil|Location2.X=1764mil|Location1.Y=2296.72mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.516mil|Location2.X=1764mil|Location1.Y=2296.72mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net SEG_G Between Pad U2-17(570mil,2333.61mil) on Top Layer And Pad *1-7(1730mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=809.516mil|Location2.X=1664mil|Location1.Y=2296.72mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=809.516mil|Location2.X=1664mil|Location1.Y=2296.72mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net SEG_DP Between Pad U2-22(820mil,2333.61mil) on Top Layer And Pad *1-8(1630mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=859.516mil|Location2.X=1564mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=859.516mil|Location2.X=1564mil|Location1.Y=2669.5mil|Location2.Y=3679mil|Absolute=True">Un-Routed Net Constraint: Net DIG_1 Between Pad U2-2(870mil,2706.39mil) on Top Layer And Pad *1-9(1530mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1795.276mil|Location2.Y=1846.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1795.276mil|Location2.Y=1846.457mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON/ Between Pad /-1(2203.504mil,1820.866mil) on Top Layer And Pad /-2(2516.496mil,1820.866mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1240.447mil|Location2.X=2234.016mil|Location1.Y=1795.276mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1240.447mil|Location2.X=2234.016mil|Location1.Y=1795.276mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON/ Between Pad U1-21(1245.158mil,2451.179mil) on Top Layer And Pad /-1(2203.504mil,1820.866mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1618.11mil|Location2.Y=1669.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1618.11mil|Location2.Y=1669.291mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad /-3(2203.504mil,1643.701mil) on Top Layer And Pad /-4(2516.496mil,1643.701mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1890.984mil|Location2.X=2234.016mil|Location1.Y=1618.11mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1890.984mil|Location2.X=2234.016mil|Location1.Y=1618.11mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 9-4(1921.496mil,1646.417mil) on Top Layer And Pad /-3(2203.504mil,1643.701mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2236.22mil|Location1.Y=1295.827mil|Location2.Y=1669.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2236.22mil|Location1.Y=1295.827mil|Location2.Y=1669.291mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad /-3(2203.504mil,1643.701mil) on Top Layer And Pad X-3(2205.709mil,1321.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2720.339mil|Location1.Y=1618.11mil|Location2.Y=2450.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2720.339mil|Location1.Y=1618.11mil|Location2.Y=2450.339mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad /-4(2516.496mil,1643.701mil) on Top Layer And Pad TP6-1(2675mil,2405mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1167.992mil|Location2.Y=1219.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=1167.992mil|Location2.Y=1219.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON- Between Pad _-1(2203.504mil,1193.583mil) on Top Layer And Pad _-2(2516.496mil,1193.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.762mil|Location2.X=2234.016mil|Location1.Y=1167.992mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.762mil|Location2.X=2234.016mil|Location1.Y=1167.992mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON- Between Pad U1-20(1225.472mil,2451.179mil) on Top Layer And Pad _-1(2203.504mil,1193.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2236.22mil|Location1.Y=990.827mil|Location2.Y=1347.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2236.22mil|Location1.Y=990.827mil|Location2.Y=1347.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad _-3(2203.504mil,1016.417mil) on Top Layer And Pad X-3(2205.709mil,1321.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2547.008mil|Location1.Y=660.827mil|Location2.Y=1042.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2547.008mil|Location1.Y=660.827mil|Location2.Y=1042.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad +-4(2516.496mil,686.417mil) on Top Layer And Pad _-4(2516.496mil,1016.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2549.213mil|Location1.Y=990.827mil|Location2.Y=1347.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2485.984mil|Location2.X=2549.213mil|Location1.Y=990.827mil|Location2.Y=1347.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad _-4(2516.496mil,1016.417mil) on Top Layer And Pad X-4(2518.701mil,1321.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=837.992mil|Location2.Y=889.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=837.992mil|Location2.Y=889.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-+ Between Pad +-1(2203.504mil,863.583mil) on Top Layer And Pad +-2(2516.496mil,863.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1201.077mil|Location2.X=2234.016mil|Location1.Y=837.992mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1201.077mil|Location2.X=2234.016mil|Location1.Y=837.992mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-+ Between Pad U1-19(1205.787mil,2451.179mil) on Top Layer And Pad +-1(2203.504mil,863.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=660.827mil|Location2.Y=712.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.992mil|Location2.X=2547.008mil|Location1.Y=660.827mil|Location2.Y=712.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad +-3(2203.504mil,686.417mil) on Top Layer And Pad +-4(2516.496mil,686.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1900.984mil|Location2.X=2234.016mil|Location1.Y=660.827mil|Location2.Y=802.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1900.984mil|Location2.X=2234.016mil|Location1.Y=660.827mil|Location2.Y=802.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 3-4(1931.496mil,776.417mil) on Top Layer And Pad +-3(2203.504mil,686.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2480.984mil|Location2.X=2547.008mil|Location1.Y=279.528mil|Location2.Y=712.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2480.984mil|Location2.X=2547.008mil|Location1.Y=279.528mil|Location2.Y=712.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad =-4(2511.496mil,305.118mil) on Top Layer And Pad +-4(2516.496mil,686.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.992mil|Location2.X=2542.008mil|Location1.Y=456.693mil|Location2.Y=507.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.992mil|Location2.X=2542.008mil|Location1.Y=456.693mil|Location2.Y=507.874mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-= Between Pad =-1(2198.504mil,482.284mil) on Top Layer And Pad =-2(2511.496mil,482.284mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1299.502mil|Location2.X=2229.016mil|Location1.Y=456.693mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1299.502mil|Location2.X=2229.016mil|Location1.Y=456.693mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-= Between Pad U1-24(1304.213mil,2451.179mil) on Top Layer And Pad =-1(2198.504mil,482.284mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.992mil|Location2.X=2542.008mil|Location1.Y=279.528mil|Location2.Y=330.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.992mil|Location2.X=2542.008mil|Location1.Y=279.528mil|Location2.Y=330.709mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad =-3(2198.504mil,305.118mil) on Top Layer And Pad =-4(2511.496mil,305.118mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1368.11mil|Location1.Y=462.992mil|Location2.Y=514.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1368.11mil|Location1.Y=462.992mil|Location2.Y=514.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-0 Between Pad 0-1(1024.606mil,488.583mil) on Top Layer And Pad 0-2(1337.599mil,488.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1194.961mil|Location1.Y=462.992mil|Location2.Y=2524.868mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1194.961mil|Location1.Y=462.992mil|Location2.Y=2524.868mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-0 Between Pad 0-1(1024.606mil,488.583mil) on Top Layer And Pad U1-16(1176.179mil,2520.157mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1368.11mil|Location1.Y=285.827mil|Location2.Y=337.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=994.095mil|Location2.X=1368.11mil|Location1.Y=285.827mil|Location2.Y=337.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 0-3(1024.606mil,311.417mil) on Top Layer And Pad 0-4(1337.599mil,311.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1055.118mil|Location1.Y=279.528mil|Location2.Y=337.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1055.118mil|Location1.Y=279.528mil|Location2.Y=337.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad CLR-4(741.496mil,305.118mil) on Top Layer And Pad 0-3(1024.606mil,311.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1368.11mil|Location1.Y=285.827mil|Location2.Y=802.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1368.11mil|Location1.Y=285.827mil|Location2.Y=802.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 2-4(1336.496mil,776.417mil) on Top Layer And Pad 0-4(1337.599mil,311.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=392.992mil|Location2.X=767.008mil|Location1.Y=929.134mil|Location2.Y=980.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=392.992mil|Location2.X=767.008mil|Location1.Y=929.134mil|Location2.Y=980.315mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-1 Between Pad 1-1(423.504mil,954.724mil) on Top Layer And Pad 1-2(736.496mil,954.724mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=705.984mil|Location2.X=1194.961mil|Location1.Y=929.134mil|Location2.Y=2544.553mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=705.984mil|Location2.X=1194.961mil|Location1.Y=929.134mil|Location2.Y=2544.553mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-1 Between Pad 1-2(736.496mil,954.724mil) on Top Layer And Pad U1-15(1176.179mil,2539.843mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=392.992mil|Location2.X=767.008mil|Location1.Y=751.968mil|Location2.Y=803.149mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=392.992mil|Location2.X=767.008mil|Location1.Y=751.968mil|Location2.Y=803.149mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 1-3(423.504mil,777.559mil) on Top Layer And Pad 1-4(736.496mil,777.559mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=705.984mil|Location2.X=1054.016mil|Location1.Y=750.827mil|Location2.Y=803.149mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=705.984mil|Location2.X=1054.016mil|Location1.Y=750.827mil|Location2.Y=803.149mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 1-4(736.496mil,777.559mil) on Top Layer And Pad 2-3(1023.504mil,776.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=927.992mil|Location2.Y=979.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=927.992mil|Location2.Y=979.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-2 Between Pad 2-1(1023.504mil,953.583mil) on Top Layer And Pad 2-2(1336.496mil,953.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1194.961mil|Location1.Y=927.992mil|Location2.Y=2564.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1194.961mil|Location1.Y=927.992mil|Location2.Y=2564.238mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-2 Between Pad 2-1(1023.504mil,953.583mil) on Top Layer And Pad U1-14(1176.179mil,2559.528mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 2-3(1023.504mil,776.417mil) on Top Layer And Pad 2-4(1336.496mil,776.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1649.016mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1649.016mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 2-4(1336.496mil,776.417mil) on Top Layer And Pad 3-3(1618.504mil,776.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1587.992mil|Location2.X=1962.008mil|Location1.Y=927.992mil|Location2.Y=979.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1587.992mil|Location2.X=1962.008mil|Location1.Y=927.992mil|Location2.Y=979.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-3 Between Pad 3-1(1618.504mil,953.583mil) on Top Layer And Pad 3-2(1931.496mil,953.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1649.016mil|Location1.Y=927.992mil|Location2.Y=2583.923mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1649.016mil|Location1.Y=927.992mil|Location2.Y=2583.923mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-3 Between Pad U1-13(1176.179mil,2579.213mil) on Top Layer And Pad 3-1(1618.504mil,953.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1587.992mil|Location2.X=1962.008mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1587.992mil|Location2.X=1962.008mil|Location1.Y=750.827mil|Location2.Y=802.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 3-3(1618.504mil,776.417mil) on Top Layer And Pad 3-4(1931.496mil,776.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=403.543mil|Location2.X=777.559mil|Location1.Y=1397.992mil|Location2.Y=1449.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=403.543mil|Location2.X=777.559mil|Location1.Y=1397.992mil|Location2.Y=1449.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-4 Between Pad 4-1(434.055mil,1423.583mil) on Top Layer And Pad 4-2(747.047mil,1423.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=716.535mil|Location2.X=1210.498mil|Location1.Y=1397.992mil|Location2.Y=2627.603mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=716.535mil|Location2.X=1210.498mil|Location1.Y=1397.992mil|Location2.Y=2627.603mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-4 Between Pad 4-2(747.047mil,1423.583mil) on Top Layer And Pad U1-12(1205.787mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=403.543mil|Location2.X=777.559mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=403.543mil|Location2.X=777.559mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 4-3(434.055mil,1246.417mil) on Top Layer And Pad 4-4(747.047mil,1246.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=716.535mil|Location2.X=1054.016mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=716.535mil|Location2.X=1054.016mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 4-4(747.047mil,1246.417mil) on Top Layer And Pad 5-3(1023.504mil,1246.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=1397.992mil|Location2.Y=1449.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=1397.992mil|Location2.Y=1449.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-5 Between Pad 5-1(1023.504mil,1423.583mil) on Top Layer And Pad 5-2(1336.496mil,1423.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.762mil|Location2.X=1367.008mil|Location1.Y=1397.992mil|Location2.Y=2627.603mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.762mil|Location2.X=1367.008mil|Location1.Y=1397.992mil|Location2.Y=2627.603mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-5 Between Pad U1-11(1225.472mil,2608.821mil) on Top Layer And Pad 5-2(1336.496mil,1423.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=992.992mil|Location2.X=1367.008mil|Location1.Y=1220.827mil|Location2.Y=1272.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 5-3(1023.504mil,1246.417mil) on Top Layer And Pad 5-4(1336.496mil,1246.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1645.669mil|Location1.Y=1215.827mil|Location2.Y=1272.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1305.984mil|Location2.X=1645.669mil|Location1.Y=1215.827mil|Location2.Y=1272.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 5-4(1336.496mil,1246.417mil) on Top Layer And Pad 6-3(1615.157mil,1241.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.646mil|Location2.X=1958.661mil|Location1.Y=1392.992mil|Location2.Y=1444.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.646mil|Location2.X=1958.661mil|Location1.Y=1392.992mil|Location2.Y=1444.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-6 Between Pad 6-1(1615.157mil,1418.583mil) on Top Layer And Pad 6-2(1928.15mil,1418.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1240.447mil|Location2.X=1645.669mil|Location1.Y=1392.992mil|Location2.Y=2627.603mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1240.447mil|Location2.X=1645.669mil|Location1.Y=1392.992mil|Location2.Y=2627.603mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-6 Between Pad U1-10(1245.158mil,2608.821mil) on Top Layer And Pad 6-1(1615.157mil,1418.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.646mil|Location2.X=1958.661mil|Location1.Y=1215.827mil|Location2.Y=1267.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.646mil|Location2.X=1958.661mil|Location1.Y=1215.827mil|Location2.Y=1267.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 6-3(1615.157mil,1241.417mil) on Top Layer And Pad 6-4(1928.15mil,1241.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1897.638mil|Location2.X=2236.22mil|Location1.Y=1215.827mil|Location2.Y=1347.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1897.638mil|Location2.X=2236.22mil|Location1.Y=1215.827mil|Location2.Y=1347.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 6-4(1928.15mil,1241.417mil) on Top Layer And Pad X-3(2205.709mil,1321.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-7 Between Pad 7-1(428.504mil,1823.583mil) on Top Layer And Pad 7-2(741.496mil,1823.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1269.553mil|Location1.Y=1797.992mil|Location2.Y=2627.603mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1269.553mil|Location1.Y=1797.992mil|Location2.Y=2627.603mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-7 Between Pad 7-2(741.496mil,1823.583mil) on Top Layer And Pad U1-9(1264.842mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 7-3(428.504mil,1646.417mil) on Top Layer And Pad 7-4(741.496mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1049.016mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1049.016mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 7-4(741.496mil,1646.417mil) on Top Layer And Pad 8-3(1018.504mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=629.882mil|Location2.X=772.008mil|Location1.Y=1620.827mil|Location2.Y=2036.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=629.882mil|Location2.X=772.008mil|Location1.Y=1620.827mil|Location2.Y=2036.378mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(685mil,2008.819mil) on Top Layer And Pad 7-4(741.496mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=987.992mil|Location2.X=1362.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=987.992mil|Location2.X=1362.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-8 Between Pad 8-1(1018.504mil,1823.583mil) on Top Layer And Pad 8-2(1331.496mil,1823.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1362.008mil|Location1.Y=1797.992mil|Location2.Y=2505.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1362.008mil|Location1.Y=1797.992mil|Location2.Y=2505.183mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-8 Between Pad U1-17(1176.179mil,2500.472mil) on Top Layer And Pad 8-2(1331.496mil,1823.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=987.992mil|Location2.X=1362.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=987.992mil|Location2.X=1362.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 8-3(1018.504mil,1646.417mil) on Top Layer And Pad 8-4(1331.496mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1300.984mil|Location2.X=1639.016mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1300.984mil|Location2.X=1639.016mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 8-4(1331.496mil,1646.417mil) on Top Layer And Pad 9-3(1608.504mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1300.984mil|Location2.X=1390.906mil|Location1.Y=1620.827mil|Location2.Y=2285.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1300.984mil|Location2.X=1390.906mil|Location1.Y=1620.827mil|Location2.Y=2285.905mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 8-4(1331.496mil,1646.417mil) on Top Layer And Pad J1-3(1360mil,2255mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1577.992mil|Location2.X=1952.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1577.992mil|Location2.X=1952.008mil|Location1.Y=1797.992mil|Location2.Y=1849.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-9 Between Pad 9-1(1608.504mil,1823.583mil) on Top Layer And Pad 9-2(1921.496mil,1823.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1639.016mil|Location1.Y=1797.992mil|Location2.Y=2485.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.397mil|Location2.X=1639.016mil|Location1.Y=1797.992mil|Location2.Y=2485.498mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-9 Between Pad U1-18(1176.179mil,2480.787mil) on Top Layer And Pad 9-1(1608.504mil,1823.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1577.992mil|Location2.X=1952.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1577.992mil|Location2.X=1952.008mil|Location1.Y=1620.827mil|Location2.Y=1672.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 9-3(1608.504mil,1646.417mil) on Top Layer And Pad 9-4(1921.496mil,1646.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1430.158mil|Location2.X=2725.339mil|Location1.Y=2537.874mil|Location2.Y=2750.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1430.158mil|Location2.X=2725.339mil|Location1.Y=2537.874mil|Location2.Y=2750.339mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad C1-1(1440mil,2545.748mil) on Top Layer And Pad TP1-1(2680mil,2705mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1449.842mil|Location1.Y=2535.132mil|Location2.Y=2553.622mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1449.842mil|Location1.Y=2535.132mil|Location2.Y=2553.622mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad U1-4(1333.821mil,2539.843mil) on Top Layer And Pad C1-1(1440mil,2545.748mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1449.842mil|Location1.Y=2506.378mil|Location2.Y=2524.868mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1449.842mil|Location1.Y=2506.378mil|Location2.Y=2524.868mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-3(1333.821mil,2520.157mil) on Top Layer And Pad C1-2(1440mil,2514.252mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=520.158mil|Location2.X=740.118mil|Location1.Y=1981.26mil|Location2.Y=2067.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=520.158mil|Location2.X=740.118mil|Location1.Y=1981.26mil|Location2.Y=2067.126mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-2(530mil,2059.252mil) on Top Layer And Pad C2-1(685mil,2008.819mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=520.158mil|Location2.X=740.118mil|Location1.Y=2082.874mil|Location2.Y=2138.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=520.158mil|Location2.X=740.118mil|Location1.Y=2082.874mil|Location2.Y=2138.74mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad C3-1(530mil,2090.748mil) on Top Layer And Pad C2-2(685mil,2111.181mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=740.118mil|Location1.Y=2083.622mil|Location2.Y=2224.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=740.118mil|Location1.Y=2083.622mil|Location2.Y=2224.079mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R1-2(620mil,2210.236mil) on Top Layer And Pad C2-2(685mil,2111.181mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=539.842mil|Location1.Y=2051.378mil|Location2.Y=2743.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=539.842mil|Location1.Y=2051.378mil|Location2.Y=2743.28mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-9(520mil,2706.39mil) on Top Layer And Pad C3-2(530mil,2059.252mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=456.693mil|Location2.Y=507.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=456.693mil|Location2.Y=507.874mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-CLR Between Pad CLR-1(428.504mil,482.284mil) on Top Layer And Pad CLR-2(741.496mil,482.284mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1352.603mil|Location1.Y=456.693mil|Location2.Y=2485.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=710.984mil|Location2.X=1352.603mil|Location1.Y=456.693mil|Location2.Y=2485.498mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-CLR Between Pad CLR-2(741.496mil,482.284mil) on Top Layer And Pad U1-1(1333.821mil,2480.787mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=279.528mil|Location2.Y=330.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=397.992mil|Location2.X=772.008mil|Location1.Y=279.528mil|Location2.Y=330.709mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad CLR-3(428.504mil,305.118mil) on Top Layer And Pad CLR-4(741.496mil,305.118mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1114.661mil|Location2.X=1205.339mil|Location1.Y=1954.661mil|Location2.Y=2285.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1114.661mil|Location2.X=1205.339mil|Location1.Y=1954.661mil|Location2.Y=2285.905mil|Absolute=True">Un-Routed Net Constraint: Net UPDI Between Pad TP2-1(1160mil,2000mil) on Multi-Layer And Pad J1-1(1160mil,2255mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.094mil|Location2.X=1289.238mil|Location1.Y=2224.095mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.094mil|Location2.X=1289.238mil|Location1.Y=2224.095mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net UPDI Between Pad J1-1(1160mil,2255mil) on Multi-Layer And Pad U1-23(1284.527mil,2451.179mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.094mil|Location2.X=1352.603mil|Location1.Y=2224.095mil|Location2.Y=2544.553mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.094mil|Location2.X=1352.603mil|Location1.Y=2224.095mil|Location2.Y=2544.553mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J1-2(1260mil,2255mil) on Multi-Layer And Pad U1-4(1333.821mil,2539.843mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=659.516mil|Location2.X=1290.906mil|Location1.Y=2224.095mil|Location2.Y=2370.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=659.516mil|Location2.X=1290.906mil|Location1.Y=2224.095mil|Location2.Y=2370.5mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad U2-19(670mil,2333.61mil) on Top Layer And Pad J1-2(1260mil,2255mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1390.906mil|Location1.Y=2224.095mil|Location2.Y=2524.868mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1390.906mil|Location1.Y=2224.095mil|Location2.Y=2524.868mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-3(1333.821mil,2520.157mil) on Top Layer And Pad J1-3(1360mil,2255mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=632.858mil|Location1.Y=2225.921mil|Location2.Y=2370.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=632.858mil|Location1.Y=2225.921mil|Location2.Y=2370.5mil|Absolute=True">Un-Routed Net Constraint: Net NetR1_1 Between Pad R1-1(620mil,2239.764mil) on Top Layer And Pad U2-18(620mil,2333.61mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=680.484mil|Location1.Y=2196.394mil|Location2.Y=2370.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=607.142mil|Location2.X=680.484mil|Location1.Y=2196.394mil|Location2.Y=2370.5mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R1-2(620mil,2210.236mil) on Top Layer And Pad U2-19(670mil,2333.61mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=2200.339mil|Location1.Y=2554.817mil|Location2.Y=2725.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=2200.339mil|Location1.Y=2554.817mil|Location2.Y=2725.339mil|Absolute=True">Un-Routed Net Constraint: Net SPI_CLK Between Pad U1-5(1333.821mil,2559.528mil) on Top Layer And Pad TP3-1(2155mil,2680mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1755.339mil|Location1.Y=2574.502mil|Location2.Y=2735.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1315.039mil|Location2.X=1755.339mil|Location1.Y=2574.502mil|Location2.Y=2735.339mil|Absolute=True">Un-Routed Net Constraint: Net SPI_DIN Between Pad U1-6(1333.821mil,2579.213mil) on Top Layer And Pad TP4-1(1710mil,2690mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1299.502mil|Location2.X=1985.339mil|Location1.Y=2590.039mil|Location2.Y=2730.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1299.502mil|Location2.X=1985.339mil|Location1.Y=2590.039mil|Location2.Y=2730.339mil|Absolute=True">Un-Routed Net Constraint: Net SPI_CS Between Pad U1-7(1304.213mil,2608.821mil) on Top Layer And Pad TP5-1(1940mil,2685mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.132mil|Location2.X=2236.22mil|Location1.Y=1472.992mil|Location2.Y=2469.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1260.132mil|Location2.X=2236.22mil|Location1.Y=1472.992mil|Location2.Y=2469.961mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-x Between Pad U1-22(1264.842mil,2451.179mil) on Top Layer And Pad X-1(2205.709mil,1498.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.866mil|Location2.X=1352.603mil|Location1.Y=2475.866mil|Location2.Y=2584.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.866mil|Location2.X=1352.603mil|Location1.Y=2475.866mil|Location2.Y=2584.134mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-3(1333.821mil,2520.157mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=359.516mil|Location2.X=1352.603mil|Location1.Y=2296.72mil|Location2.Y=2564.238mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=359.516mil|Location2.X=1352.603mil|Location1.Y=2296.72mil|Location2.Y=2564.238mil|Absolute=True">Un-Routed Net Constraint: Net SPI_CLK Between Pad U2-13(370mil,2333.61mil) on Top Layer And Pad U1-5(1333.821mil,2559.528mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=909.516mil|Location2.X=1352.603mil|Location1.Y=2574.502mil|Location2.Y=2743.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=909.516mil|Location2.X=1352.603mil|Location1.Y=2574.502mil|Location2.Y=2743.28mil|Absolute=True">Un-Routed Net Constraint: Net SPI_DIN Between Pad U2-1(920mil,2706.39mil) on Top Layer And Pad U1-6(1333.821mil,2579.213mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=359.516mil|Location2.X=1308.923mil|Location1.Y=2590.039mil|Location2.Y=2743.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=359.516mil|Location2.X=1308.923mil|Location1.Y=2590.039mil|Location2.Y=2743.28mil|Absolute=True">Un-Routed Net Constraint: Net SPI_CS Between Pad U2-12(370mil,2706.39mil) on Top Layer And Pad U1-7(1304.213mil,2608.821mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=780.484mil|Location1.Y=2669.5mil|Location2.Y=2743.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=509.516mil|Location2.X=780.484mil|Location1.Y=2669.5mil|Location2.Y=2743.28mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-9(520mil,2706.39mil) on Top Layer And Pad U2-4(770mil,2706.39mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175.197mil|Location2.X=2549.213mil|Location1.Y=1472.992mil|Location2.Y=1524.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175.197mil|Location2.X=2549.213mil|Location1.Y=1472.992mil|Location2.Y=1524.173mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON-x Between Pad X-1(2205.709mil,1498.583mil) on Top Layer And Pad X-2(2518.701mil,1498.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175.197mil|Location2.X=2549.213mil|Location1.Y=1295.827mil|Location2.Y=1347.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175.197mil|Location2.X=2549.213mil|Location1.Y=1295.827mil|Location2.Y=1347.008mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad X-3(2205.709mil,1321.417mil) on Top Layer And Pad X-4(2518.701mil,1321.417mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYKRBRX320YOUJXTFFPOZLPTUOE1LT5OUHLPULDNDU3DLMGKYLQTL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=601.517mil|Location2.X=612.767mil|Location1.Y=2219.375mil|Location2.Y=2230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=601.517mil|Location2.X=612.767mil|Location1.Y=2219.375mil|Location2.Y=2230.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad R1-1(620mil,2239.764mil) on Top Layer And Pad R1-2(620mil,2210.236mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2470.452mil|Location2.Y=2481.702mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2470.452mil|Location2.Y=2481.702mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-1(1333.821mil,2480.787mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-10(1245.158mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-11(1225.472mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-12(1205.787mil,2608.821mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-13(1176.179mil,2579.213mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-14(1176.179mil,2559.528mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-15(1176.179mil,2539.843mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-16(1176.179mil,2520.157mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-17(1176.179mil,2500.472mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2475.162mil|Location2.Y=2486.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.288mil|Location2.X=1203.538mil|Location1.Y=2475.162mil|Location2.Y=2486.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-18(1176.179mil,2480.787mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1200.162mil|Location2.X=1211.412mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-19(1205.787mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2494.847mil|Location2.Y=2506.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-2(1333.821mil,2500.472mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1231.097mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-20(1225.472mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1239.533mil|Location2.X=1250.783mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-21(1245.158mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-22(1264.842mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-23(1284.527mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2467.288mil|Location2.Y=2478.538mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-24(1304.213mil,2451.179mil) on Top Layer And Pad U1-25(1255mil,2530mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2514.532mil|Location2.Y=2525.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-3(1333.821mil,2520.157mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2534.218mil|Location2.Y=2545.468mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-4(1333.821mil,2539.843mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2553.903mil|Location2.Y=2565.153mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-5(1333.821mil,2559.528mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1317.712mil|Location1.Y=2573.588mil|Location2.Y=2584.838mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-6(1333.821mil,2579.213mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1298.588mil|Location2.X=1309.838mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-7(1304.213mil,2608.821mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1278.902mil|Location2.X=1290.152mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-8(1284.527mil,2608.821mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1259.217mil|Location2.X=1270.467mil|Location1.Y=2581.462mil|Location2.Y=2592.712mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.906mil &lt; 10mil) Between Pad U1-25(1255mil,2530mil) on Top Layer And Pad U1-9(1264.842mil,2608.821mil) on Top Layer [Top Solder] Mask Sliver [5.906mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
