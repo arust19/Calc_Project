@@ -1,0 +1,12 @@
+Board Information Report
+Filename     : C:\Users\rusta\OneDrive\Desktop\ECE Projects\Calculator\CalcPCB_Project.PcbDoc
+Date         : 5/11/2026
+Time         : 8:00:04 PM
+Time Elapsed : 00:00:00
+
+Routing Information
+    Routing completion, 3.00%
+    Connections, 100
+    Connections routed, 3
+    Connections remaining, 97
+count : 4
