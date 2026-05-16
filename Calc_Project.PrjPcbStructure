@@ -1,2 +1,3 @@
 Record=TopLevelDocument|FileName=Calc_Schem.SchDoc|SheetNumber=1
 Record=NoMainPathDocument|SourceDocument=Calc_Schem.SchDoc|FileName=MAX_SEG.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=Calc_Schem.SchDoc|FileName=OpAmpComp_Schem.SchDoc|SheetNumber=3
