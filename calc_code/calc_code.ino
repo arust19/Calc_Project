@@ -1,17 +1,9 @@
 #include "LedControl.h"
 
 //Map Each button to its corrosponding pin
-const int buttonPin0 = 14;  // TODO, Map Each button to the coresponding number on calculator to the Pin on the ATTiny
-const int buttonPin1 = 11;
-const int buttonPin2 = 15;
-const int buttonPin3 = 13;
-const int buttonPin4 = 12;
-const int buttonPin5 = 16;
-const int buttonPin6 = 10;
-const int buttonPin7 = 9;
-const int buttonPin8 = 17;
-const int buttonPin9 = 18;
 
+// Used an Array for the 0-9 digits
+const int buttonPinsDigits[10] = {14, 11, 15, 13, 12, 16, 10, 9, 17, 18};
 const int buttonPinDIV = 19;
 const int buttonPinMUL = 20;
 const int buttonPinSUB = 21;
@@ -25,13 +17,13 @@ unsigned long buttonPressCount = 0;
 const unsigned long buttonMax = 50;
 
 // LedControl for DIN, clck, cs, number of devices
-LedControl lc = LedControl(6,5,7,1)  // TODO Double Check pin numbers in Altium!
+LedControl lc = LedControl(6,5,7,1);  // TODO Double Check pin numbers in Altium!
 
 void setup() {
 
-  // Enable Pull up resistors for each button
-  for(int i=0; i<10; i++){
-    pinMode(buttonPin+i+, INPUT_PULLUP);
+  // Enable pull-up resistors for digit buttons
+  for (int i = 0; i < 10; i++) {
+    pinMode(buttonPinsDigits[i], INPUT_PULLUP);
   }
 
   pinMode(buttonPinDIV, INPUT_PULLUP);
