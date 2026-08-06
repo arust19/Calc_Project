@@ -49,7 +49,7 @@ int operand = 0;         // Variable to store if using operand 1 or 2, increment
 int calcOpp;             // Variable to store what operation was selected
 int calcFinalVal = 0;    // Variable to store the result of the operation
 
-
+// TODO: Add button debouncing
 void loop() {
 
   for(int i = 0; i < 10; i++){
@@ -58,15 +58,15 @@ void loop() {
       handleDigitPress(i);
     }
 
-    if(i < 7 ){
+    if(i < 6 ){
 
       // Handle the case where Equal is selected 
-      if(digitalRead(buttonPinsOpp[i] == LOW && i == OPP_EQL)){
+      if(digitalRead(buttonPinsOpp[i]) == LOW && i == OPP_EQL)){
         handleEQLPress();
       }
 
       // Handle the case where Clear is selected
-      else if(digitalRead(buttonPinsOpp[i] == LOW && i == OPP_CLR)){
+      else if(digitalRead(buttonPinsOpp[i]) == LOW && i == OPP_CLR)){
         // Reset all settings
         for(int j = 0; j < 4; j++){
           lc.setDigit(0, j, 0, false);
@@ -99,15 +99,16 @@ void loop() {
 void handleDigitPress(int digit){
 
   //Button Pressed, Add code to display the number/Operator
-  if(calcPosition >= 4){ return }
-    for(int i = 0; i < 4; i++){
-      lc.setDigit(0,calcPosition,i,false) // Turn on one digit (Divice, posititon, value, showDecimal Point)
-    }
+  if(calcPosition >= 4){ return; }
+
+    // Turn on one digit (Divice, posititon, value, showDecimal Point)
+    lc.setDigit(0,calcPosition,i,false); 
+
     if(operand == 0){
-      calcValueOne * 10 + digit;
+      calcValueOne = calcValueOne * 10 + digit;
     }
     else if(operand == 1){
-      calcValueTwo * 10 + digit;
+      calcValueTwo = calcValueTwo * 10 + digit;
     }
     calcPosition++;
     
@@ -115,10 +116,14 @@ void handleDigitPress(int digit){
 
 
 // This function will perform the actual operation
+// TODO: Add helper function to display the result
 void handleEQLPress(){
   switch(calcOpp){
     case OPP_DIV:
-    calcFinalVal = calcValueOne / calcValueTwo;
+    // Guard against div by 0
+    if(calcValueTwo != 0){
+      calcFinalVal = calcValueOne / calcValueTwo;
+    }
     break;
 
     case OPP_MUL:
