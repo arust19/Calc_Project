@@ -6,7 +6,7 @@
 const int buttonPinsDigits[10] = {14, 11, 15, 13, 12, 16, 10, 9, 17, 18};
 
 // Array to store each opperation, 19 = DIV, 20 = MUL, 21 = SUB, 22 = ADD, 1 = CLR, 24 = EQL
-const int buttonPinsOpp[6] = {19, 20, 21, 22, 1, 24}
+const int buttonPinsOpp[6] = {19, 20, 21, 22, 1, 24};
 
 // Index meanings
 #define OPP_DIV 0
@@ -31,12 +31,9 @@ void setup() {
     pinMode(buttonPinsDigits[i], INPUT_PULLUP);
   }
 
-  pinMode(buttonPinDIV, INPUT_PULLUP);
-  pinMode(buttonPinMUL, INPUT_PULLUP);
-  pinMode(buttonPinSUB, INPUT_PULLUP);
-  pinMode(buttonPinADD, INPUT_PULLUP);
-  pinMode(buttonPinCLR, INPUT_PULLUP);
-  pinMode(buttonPinEQL, INPUT_PULLUP);
+  for (int i = 0; i < 6; i++){
+    pinMode(buttonPinsOpp[i], INPUT_PULLUP);
+  }
 
   // Set up for the MAX display driver
   lc.shutdown(0, false);   // wake up display
@@ -53,18 +50,23 @@ int calcOpp;
 void loop() {
 
   for(int i = 0; i < 10; i++){
-    if(digitalRead(buttonPinsDigits[i]) == LOW)){
+    if(digitalRead(buttonPinsDigits[i]) == LOW){
       //Button i Is pressed - i is the digit value 0-9
       handleDigitPress(i);
     }
 
     if(i < 7 ){
-      if(digitalRead(buttonPinsOpp[i]) == LOW){
+
+      if(digitalRead(buttonPinsOpp[i] == LOW && i == OPP_EQL)){
+        handleEQLPress();
+      }
+
+      else if(digitalRead(buttonPinsOpp[i]) == LOW){
         calcPosition = 0;
         calcOpp = i;
 
         // Reset the display
-        for(int j = 0; j < 4; i++){
+        for(int j = 0; j < 4; j++){
           lc.setDigit(0, j, 0, false);
         }
     
@@ -78,16 +80,18 @@ void loop() {
 void handleDigitPress(int digit){
 
   //Button Pressed, Add code to display the number/Operator
-  if(calcPosition >= 4){ break; }
-    lc.setDigit(0,calcPosition,i,false) // Turn on one digit (Divice, posititon, value, showDecimal Point)
+  if(calcPosition >= 4){ return }
+    for(int i = 0; i < 4; i++){
+      lc.setDigit(0,calcPosition,i,false) // Turn on one digit (Divice, posititon, value, showDecimal Point)
+    }
     calcPosition++;
-    calcValue + i;    // Update the value so we can perform operations with an actual value;
+    calcValue * 10 + digit;    // Update the value so we can perform operations with an actual value - Note that it isnt just adding the numbers together, rather shifting it over a digit and adding the new input
 }
 
 
 // This function will perform the actual operation
 void handleEQLPress(){
-  switch(opp){
+  switch(calcOpp){
     case OPP_DIV:
     break;
 
@@ -106,6 +110,6 @@ void handleEQLPress(){
     case OPP_EQL:
     break;
   }
-  }
-
 }
+
+
