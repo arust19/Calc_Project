@@ -4,13 +4,18 @@
 
 // Used an Array for the 0-9 digits
 const int buttonPinsDigits[10] = {14, 11, 15, 13, 12, 16, 10, 9, 17, 18};
-const int buttonPinDIV = 19;
-const int buttonPinMUL = 20;
-const int buttonPinSUB = 21;
-const int buttonPinADD = 22;
 
-const int buttonPinCLR = 1;
-const int buttonPinEQL = 24;
+// Array to store each opperation, 19 = DIV, 20 = MUL, 21 = SUB, 22 = ADD, 1 = CLR, 24 = EQL
+const int buttonPinsOpp[6] = {19, 20, 21, 22, 1, 24}
+
+// Index meanings
+#define OPP_DIV 0
+#define OPP_MUL 1
+#define OPP_SUB 2
+#define OPP_ADD 3
+#define OPP_CLR 4
+#define OPP_EQL 5
+
 
 // Code for button debouncing
 unsigned long buttonPressCount = 0;
@@ -39,15 +44,68 @@ void setup() {
   lc.clearDisplay(0);
 }
 
+// Variable to store the col of the calculator, will increase after each number up to 4, then it will loop back to 0
+int calcPosition = 0; 
+int calcValue = 0;
+int calcOpp;
+
+
 void loop() {
-  // put your main code here, to run repeatedly:
 
-  // Check for button press - Button not pressed = HIGH (pull-UP Resistor)
-  if(digitalRead(buttonPin#) == LOW){
-    //Button Pressed, Add code to display the number/Operator
-    lc.setLED(0,0,0,true) // Turn on one LED (Divice, Row, Col, State)
+  for(int i = 0; i < 10; i++){
+    if(digitalRead(buttonPinsDigits[i]) == LOW)){
+      //Button i Is pressed - i is the digit value 0-9
+      handleDigitPress(i);
+    }
+
+    if(i < 7 ){
+      if(digitalRead(buttonPinsOpp[i]) == LOW){
+        calcPosition = 0;
+        calcOpp = i;
+
+        // Reset the display
+        for(int j = 0; j < 4; i++){
+          lc.setDigit(0, j, 0, false);
+        }
+    
+      }
+    }
   }
+}
 
-  lc.setLed(0,0,0,true) // Set the LED
+// This function will handle each digit press
+// TODO: Update this section to handle the case where 
+void handleDigitPress(int digit){
+
+  //Button Pressed, Add code to display the number/Operator
+  if(calcPosition >= 4){ break; }
+    lc.setDigit(0,calcPosition,i,false) // Turn on one digit (Divice, posititon, value, showDecimal Point)
+    calcPosition++;
+    calcValue + i;    // Update the value so we can perform operations with an actual value;
+}
+
+
+// This function will perform the actual operation
+void handleEQLPress(){
+  switch(opp){
+    case OPP_DIV:
+    break;
+
+    case OPP_MUL:
+    break;
+
+    case OPP_SUB:
+    break;
+
+    case OPP_ADD:
+    break;
+
+    case OPP_CLR:
+    break;
+
+    case OPP_EQL:
+    break;
+  }
+  }
 
 }
