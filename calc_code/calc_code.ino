@@ -41,10 +41,13 @@ void setup() {
   lc.clearDisplay(0);
 }
 
-// Variable to store the col of the calculator, will increase after each number up to 4, then it will loop back to 0
-int calcPosition = 0; 
-int calcValue = 0;
-int calcOpp;
+
+int calcPosition = 0;    // Variable to store the col of the calculator, will increase after each number up to 4, then it will loop back to 0
+int calcValueOne = 0;    // First operand 
+int calcValueTwo = 0;    // Second operand
+int operand = 0;         // Variable to store if using operand 1 or 2, increments only when an operation is selected
+int calcOpp;             // Variable to store what operation was selected
+int calcFinalVal = 0;    // Variable to store the result of the operation
 
 
 void loop() {
@@ -57,13 +60,30 @@ void loop() {
 
     if(i < 7 ){
 
+      // Handle the case where Equal is selected 
       if(digitalRead(buttonPinsOpp[i] == LOW && i == OPP_EQL)){
         handleEQLPress();
       }
 
+      // Handle the case where Clear is selected
+      else if(digitalRead(buttonPinsOpp[i] == LOW && i == OPP_CLR)){
+        // Reset all settings
+        for(int j = 0; j < 4; j++){
+          lc.setDigit(0, j, 0, false);
+        }
+
+        calcPosition = 0;
+        calcValueOne = 0;
+        calcValueTwo = 0;
+        operand = 0;
+       
+      }
+
+      // Should only run on a valid operation, and NOT EQL / CLR
       else if(digitalRead(buttonPinsOpp[i]) == LOW){
         calcPosition = 0;
         calcOpp = i;
+        operand++;    // Move to the next operand once an operation is selected
 
         // Reset the display
         for(int j = 0; j < 4; j++){
@@ -75,8 +95,7 @@ void loop() {
   }
 }
 
-// This function will handle each digit press
-// TODO: Update this section to handle the case where 
+// This function will handle each digit press 
 void handleDigitPress(int digit){
 
   //Button Pressed, Add code to display the number/Operator
@@ -84,8 +103,14 @@ void handleDigitPress(int digit){
     for(int i = 0; i < 4; i++){
       lc.setDigit(0,calcPosition,i,false) // Turn on one digit (Divice, posititon, value, showDecimal Point)
     }
+    if(operand == 0){
+      calcValueOne * 10 + digit;
+    }
+    else if(operand == 1){
+      calcValueTwo * 10 + digit;
+    }
     calcPosition++;
-    calcValue * 10 + digit;    // Update the value so we can perform operations with an actual value - Note that it isnt just adding the numbers together, rather shifting it over a digit and adding the new input
+    
 }
 
 
@@ -93,21 +118,19 @@ void handleDigitPress(int digit){
 void handleEQLPress(){
   switch(calcOpp){
     case OPP_DIV:
+    calcFinalVal = calcValueOne / calcValueTwo;
     break;
 
     case OPP_MUL:
+    calcFinalVal = (calcValueOne * calcValueTwo);
     break;
 
     case OPP_SUB:
+    calcFinalVal = (calcValueOne - calcValueTwo);
     break;
 
     case OPP_ADD:
-    break;
-
-    case OPP_CLR:
-    break;
-
-    case OPP_EQL:
+    calcFinalVal = (calcValueOne + calcValueTwo);
     break;
   }
 }
